@@ -14,7 +14,7 @@ const RelatedVideos = ({ videos, handleVideoClick }) => {
 						alt={video.snippet.title}
 						className="w-40 h-20 object-contain bg-customBlack"
 					/>
-					<div className="w-80 text-sm flex flex-col gap-1">
+					<div className="w-80 text-sm flex flex-col gap-1 md:w-full">
 						<p>{video.snippet.title}</p>
 						<p className="text-slate-400">
 							{video.snippet.channelTitle}

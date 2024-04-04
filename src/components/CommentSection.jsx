@@ -1,14 +1,51 @@
-import React from "react";
+import React, { useState } from "react";
 
-const CommentSection = ({
-	handleSubmitComment,
-	comment,
-	setComment,
-	setCommentError,
-	commentError,
-	commentData,
-	handleReactToComment,
-}) => {
+const CommentSection = ({ commentData, setCommentData, selectedVideoId }) => {
+	const [comment, setComment] = useState("");
+	const [commentError, setCommentError] = useState("");
+
+	const handleSubmitComment = (e) => {
+		e.preventDefault();
+		let valid = true;
+
+		if (!comment) {
+			setCommentError("Please fill up the required field.");
+			valid = false;
+		}
+
+		if (valid) {
+			const newComment = {
+				id: new Date(),
+				message: comment.trim(),
+				likes: 0,
+				dislikes: 0,
+				videoId: selectedVideoId,
+			};
+
+			const existingComments =
+				JSON.parse(localStorage.getItem("comments")) || [];
+			const updatedComments = [...existingComments, newComment];
+			localStorage.setItem("comments", JSON.stringify(updatedComments));
+			setCommentData(updatedComments);
+			setComment("");
+		}
+	};
+
+	const handleReactToComment = (commentId, reaction) => {
+		const updatedComments = commentData.map((comment) => {
+			if (comment.id === commentId) {
+				if (reaction === "like") {
+					return { ...comment, likes: comment.likes + 1 };
+				} else if (reaction === "dislike") {
+					return { ...comment, dislikes: comment.dislikes + 1 };
+				}
+			}
+			return comment;
+		});
+		setCommentData(updatedComments);
+		localStorage.setItem("comments", JSON.stringify(updatedComments));
+	};
+
 	return (
 		<section className="mt-5 xl:w-[949px] xl:mt-10">
 			<h3>Post a comment</h3>
