@@ -12,8 +12,8 @@ function App() {
 	const [commentData, setCommentData] = useState([]);
 
 	const LINK = "https://www.googleapis.com/youtube/v3/search";
-	// const API_KEY = "AIzaSyBjTqmW9yLzjJeeTIKWjO3d64xP4bB2jXw";
-	const API_KEY = "AIzaSyBhyytuLDYVVs7QQDuGyp3cg70OO8AQkAw";
+	const API_KEY = "AIzaSyBjTqmW9yLzjJeeTIKWjO3d64xP4bB2jXw";
+	// const API_KEY = "AIzaSyBhyytuLDYVVs7QQDuGyp3cg70OO8AQkAw";
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -24,16 +24,8 @@ function App() {
 		};
 		fetchData();
 
-		const existingComments =
-			JSON.parse(localStorage.getItem("comments")) || [];
-		setCommentData(existingComments);
-	}, []);
-
-	useEffect(() => {
-		const videoComments = commentData.filter(
-			(comment) => comment.videoId === selectedVideoId
-		);
-		setCommentData(videoComments);
+		const existingComments = JSON.parse(localStorage.getItem(`comments-${selectedVideoId}`)) || [];
+    	setCommentData(existingComments);
 	}, [selectedVideoId]);
 
 	const handleVideoClick = (videoId) => {

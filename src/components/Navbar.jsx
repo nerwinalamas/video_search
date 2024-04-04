@@ -6,8 +6,8 @@ const Navbar = ({ setVideos }) => {
 	const [searchVideoError, setSearchVideoError] = useState("");
 
 	const LINK = "https://www.googleapis.com/youtube/v3/search";
-	// const API_KEY = "AIzaSyBjTqmW9yLzjJeeTIKWjO3d64xP4bB2jXw";
-	const API_KEY = "AIzaSyBhyytuLDYVVs7QQDuGyp3cg70OO8AQkAw";
+	const API_KEY = "AIzaSyBjTqmW9yLzjJeeTIKWjO3d64xP4bB2jXw";
+	// const API_KEY = "AIzaSyBhyytuLDYVVs7QQDuGyp3cg70OO8AQkAw";
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();

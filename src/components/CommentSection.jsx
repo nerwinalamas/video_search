@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 const CommentSection = ({ commentData, setCommentData, selectedVideoId }) => {
 	const [comment, setComment] = useState("");
@@ -15,18 +16,16 @@ const CommentSection = ({ commentData, setCommentData, selectedVideoId }) => {
 
 		if (valid) {
 			const newComment = {
-				id: new Date(),
+				id: uuidv4(),
 				message: comment.trim(),
 				likes: 0,
 				dislikes: 0,
 				videoId: selectedVideoId,
 			};
 
-			const existingComments =
-				JSON.parse(localStorage.getItem("comments")) || [];
-			const updatedComments = [...existingComments, newComment];
-			localStorage.setItem("comments", JSON.stringify(updatedComments));
+			const updatedComments = [...commentData, newComment];
 			setCommentData(updatedComments);
+			localStorage.setItem(`comments-${selectedVideoId}`, JSON.stringify(updatedComments));
 			setComment("");
 		}
 	};
@@ -43,7 +42,7 @@ const CommentSection = ({ commentData, setCommentData, selectedVideoId }) => {
 			return comment;
 		});
 		setCommentData(updatedComments);
-		localStorage.setItem("comments", JSON.stringify(updatedComments));
+		localStorage.setItem(`comments-${selectedVideoId}`, JSON.stringify(updatedComments));
 	};
 
 	return (
@@ -80,47 +79,48 @@ const CommentSection = ({ commentData, setCommentData, selectedVideoId }) => {
 			<div className="flex flex-col gap-2 mt-5">
 				<h3 className="font-bold">Comments</h3>
 				<ul className="flex flex-col gap-3 pl-3">
-					{commentData.map((userComment) => (
-						<li
-							key={userComment.id}
-							className="flex flex-col gap-1"
-						>
-							<p>{userComment.message}</p>
-							<div className="flex gap-2 text-xs text-gray-500">
-								<div className="flex gap-2">
-									<p
-										className="cursor-pointer hover:underline"
-										title="like"
-										onClick={() =>
-											handleReactToComment(
-												userComment.id,
-												"like"
-											)
-										}
-									>
-										like
-									</p>
-									<p>{userComment.likes}</p>
+					{commentData &&
+						commentData.map((userComment) => (
+							<li
+								key={userComment.id}
+								className="flex flex-col gap-1"
+							>
+								<p>{userComment.message}</p>
+								<div className="flex gap-2 text-xs text-gray-500">
+									<div className="flex gap-2">
+										<p
+											className="cursor-pointer hover:underline"
+											title="like"
+											onClick={() =>
+												handleReactToComment(
+													userComment.id,
+													"like"
+												)
+											}
+										>
+											like
+										</p>
+										<p>{userComment.likes}</p>
+									</div>
+									<p>|</p>
+									<div className="flex gap-2">
+										<p
+											className="cursor-pointer hover:underline"
+											title="dislike"
+											onClick={() =>
+												handleReactToComment(
+													userComment.id,
+													"dislike"
+												)
+											}
+										>
+											dislike
+										</p>
+										<p>{userComment.dislikes}</p>
+									</div>
 								</div>
-								<p>|</p>
-								<div className="flex gap-2">
-									<p
-										className="cursor-pointer hover:underline"
-										title="dislike"
-										onClick={() =>
-											handleReactToComment(
-												userComment.id,
-												"dislike"
-											)
-										}
-									>
-										dislike
-									</p>
-									<p>{userComment.dislikes}</p>
-								</div>
-							</div>
-						</li>
-					))}
+							</li>
+						))}
 				</ul>
 			</div>
 		</section>
