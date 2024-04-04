@@ -116,9 +116,12 @@ function App() {
 	};
 
 	return (
-		<main className="w-screen h-screen px-5 pt-5 pb-10 font-poppins bg-customBlack text-customWhite md:w-full xl:h-auto">
-			<nav className="flex items-center gap-5 xl:w-[949px] md:gap-10">
-				<h1 className="text-3xl font-bold xl:text-5xl">YT</h1>
+		<main className="w-screen h-auto px-5 pt-5 pb-10 font-poppins bg-customBlack text-customWhite md:w-full xl:h-auto">
+			<nav className="flex flex-col justify-between gap-5 xl:w-[949px] md:flex-row md:gap-10">
+				<h1 className="text-3xl text-red-700 font-semibold xl:text-4xl">
+					<span className="text-customWhite">V88</span>
+					tube
+				</h1>
 				<form
 					onSubmit={handleSubmit}
 					className="w-full flex gap-5 md:w-96"
@@ -138,7 +141,7 @@ function App() {
 						type="submit"
 						value="search"
 						name="submit"
-						className="w-max bg-customWhite text-customBlack py-2 px-1 rounded-md font-semibold cursor-pointer"
+						className="w-max bg-red-700 text-customWhite py-2 px-3 rounded-md cursor-pointer"
 					/>
 				</form>
 				{searchVideoError && (
@@ -147,7 +150,7 @@ function App() {
 					</p>
 				)}
 			</nav>
-			<section className="flex flex-col mt-5 gap-10 xl:flex-row">
+			<section className="flex flex-col mt-5 gap-5 xl:flex-row">
 				{/* VIDEO */}
 				<div className="flex flex-col gap-3 md:gap-5">
 					<iframe
@@ -157,14 +160,27 @@ function App() {
 						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
 						referrerpolicy="strict-origin-when-cross-origin"
 						allowfullscreen
-						className="w-full h-60 object-contain md:h-96 lg:h-[500px] xl:w-[949px] xl:h-[534px]"
+						className="w-full h-60 object-contain rounded-lg md:h-96 lg:h-[500px] xl:w-[949px] xl:h-[534px]"
 					></iframe>
-					<div className="flex flex-col gap-5 border p-5 rounded-md xl:w-[949px]">
-						<h2 className="text-2xl font-bold">
-							{videoData.title}
-						</h2>
-						<p className="text-gray-500">{videoData.description}</p>
-					</div>
+					{videoData && (
+						<div className="flex flex-col gap-3">
+							<h2 className="text-lg font-medium">
+								<p>{videoData.title}</p>
+							</h2>
+							<div className="flex items-center gap-2">
+								<p className="w-12 h-12 bg-slate-400 text-customBlack font-extrabold flex items-center justify-center rounded-full text-2xl">
+									{videoData.channelTitle &&
+										videoData.channelTitle[0]}
+								</p>
+								<p>{videoData.channelTitle}</p>
+							</div>
+							<div className="flex flex-col gap-5 p-5 rounded-lg bg-slate-900 xl:w-[949px]">
+								<p className="text-sm">
+									{videoData.description}
+								</p>
+							</div>
+						</div>
+					)}
 				</div>
 				{/* RELATED VID */}
 				<RelatedVideos
@@ -175,7 +191,7 @@ function App() {
 			{/* COMMENT SECTION */}
 			<CommentSection
 				handleSubmitComment={handleSubmitComment}
-                comment={comment}
+				comment={comment}
 				setComment={setComment}
 				setCommentError={setCommentError}
 				commentError={commentError}

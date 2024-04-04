@@ -10,11 +10,10 @@ export default {
         poppins: ["Poppins", "sans-serif"]
       },
       colors: {
-        customBlack: "#0f0e17",
+        customBlack: "#0E0E0E",
         customWhite: "#fffffe"
       }
     },
   },
   plugins: [],
 }
-

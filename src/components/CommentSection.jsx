@@ -2,7 +2,7 @@ import React from "react";
 
 const CommentSection = ({
 	handleSubmitComment,
-    comment,
+	comment,
 	setComment,
 	setCommentError,
 	commentError,
@@ -19,16 +19,16 @@ const CommentSection = ({
 				<textarea
 					name="message"
 					id="message"
-					rows="2"
+					rows="3"
 					value={comment}
 					onChange={(e) => {
 						setComment(e.target.value);
 						setCommentError("");
 					}}
-					className="w-full rounded-sm mt-3 text-customBlack p-2"
+					className="w-full rounded-md mt-3 text-customWhite bg-slate-900 p-3 text-sm outline-none"
 				></textarea>
 				{commentError && (
-					<p className="text-xs text-red-500 font-bold">
+					<p className="text-sm text-red-700 font-semibold">
 						{commentError}
 					</p>
 				)}
@@ -37,7 +37,7 @@ const CommentSection = ({
 					value="post"
 					id="post"
 					name="post"
-					className="bg-green-500 px-4 py-1 rounded-sm cursor-pointer self-end"
+					className="bg-red-700 px-4 py-1 rounded-sm cursor-pointer self-end"
 				/>
 			</form>
 			<div className="flex flex-col gap-2 mt-5">
