@@ -5,15 +5,14 @@ import CommentSection from "./components/CommentSection";
 import Video from "./components/Video";
 import Navbar from "./components/Navbar";
 
+const LINK = import.meta.env.VITE_LINK;
+const API_KEY = import.meta.env.VITE_API_KEY;
+
 function App() {
 	const [videos, setVideos] = useState([]);
 	const [videoData, setVideoData] = useState({});
 	const [selectedVideoId, setSelectedVideoId] = useState("");
 	const [commentData, setCommentData] = useState([]);
-
-	const LINK = "https://www.googleapis.com/youtube/v3/search";
-	const API_KEY = "AIzaSyBjTqmW9yLzjJeeTIKWjO3d64xP4bB2jXw";
-	// const API_KEY = "AIzaSyBhyytuLDYVVs7QQDuGyp3cg70OO8AQkAw";
 
 	useEffect(() => {
 		const fetchData = async () => {
